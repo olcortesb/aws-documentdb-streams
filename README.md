@@ -36,9 +36,25 @@ This project demonstrates how to implement DocumentDB Streams with AWS Lambda us
 
 - AWS CLI configured with appropriate permissions
 - Terraform installed (>= 1.0)
+- Python 3.11+ with pip
 - `wget` or `curl` for downloading certificates
 
-### 1. Download updated SSL certificates
+### 1. Install Python dependencies
+
+```bash
+# Install dependencies for Lambda Writer
+cd lambda/writer
+pip install pymongo dnspython -t .
+
+# Install dependencies for Lambda Stream Processor
+cd ../stream-processor
+pip install pymongo dnspython -t .
+
+# Return to root directory
+cd ../..
+```
+
+### 2. Download updated SSL certificates
 
 ```bash
 # Download certificate for Lambda Writer
@@ -53,7 +69,7 @@ wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -O global
 cd ../..
 ```
 
-### 2. Recompile Lambda functions
+### 3. Recompile Lambda functions
 
 ```bash
 # Recompile Lambda Writer
@@ -66,14 +82,14 @@ cd ../stream-processor && zip -r ../../lambda_stream_processor.zip .
 cd ../..
 ```
 
-### 3. Deploy infrastructure
+### 4. Deploy infrastructure
 
 ```bash
 terraform init
 terraform apply
 ```
 
-> **Note:** The SSL certificates and Lambda ZIP files are excluded from version control for security reasons. You must download and compile them locally before deployment.
+> **Note:** The SSL certificates, Lambda ZIP files, and Python dependencies are excluded from version control for security and size reasons. You must install and compile them locally before deployment.
 
 ## Usage
 
@@ -225,6 +241,7 @@ For security reasons, the following files are excluded from version control:
 
 - **SSL Certificates** (`*.pem`): Must be downloaded from AWS
 - **Lambda Packages** (`*.zip`): Must be compiled locally
+- **Python Dependencies** (`pymongo/`, `bson/`, etc.): Must be installed locally
 - **Terraform State** (`*.tfstate`): Contains sensitive resource information
 - **Variables Files** (`*.tfvars`): May contain sensitive configuration
 
@@ -232,9 +249,22 @@ For security reasons, the following files are excluded from version control:
 
 If you're cloning this repository, you must:
 
-1. **Download SSL certificates** (see Deployment section)
-2. **Compile Lambda packages** (see Deployment section)
-3. **Configure AWS credentials** with appropriate permissions:
+1. **Install Python dependencies** in Lambda folders:
+   ```bash
+   # Install dependencies for Lambda Writer
+   cd lambda/writer
+   pip install pymongo dnspython -t .
+   
+   # Install dependencies for Lambda Stream Processor
+   cd ../stream-processor
+   pip install pymongo dnspython -t .
+   
+   cd ../..
+   ```
+
+2. **Download SSL certificates** (see Deployment section)
+3. **Compile Lambda packages** (see Deployment section)
+4. **Configure AWS credentials** with appropriate permissions:
    - DocumentDB management
    - Lambda function management
    - VPC and networking

@@ -46,6 +46,14 @@ lambda_stream_processor.zip
 global-bundle.pem
 rds-ca-2019-root.pem
 
+# Python dependencies in Lambda folders
+lambda/*/pymongo/
+lambda/*/bson/
+lambda/*/dns/
+lambda/*/gridfs/
+lambda/*/dnspython*/
+lambda/*/pymongo*/
+
 # AWS credentials and config
 .aws/
 aws-credentials
@@ -56,6 +64,21 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
 # IDE files
 .vscode/
