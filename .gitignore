@@ -35,3 +35,34 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Lambda deployment packages
+*.zip
+lambda_writer.zip
+lambda_stream_processor.zip
+
+# SSL Certificates
+*.pem
+global-bundle.pem
+rds-ca-2019-root.pem
+
+# AWS credentials and config
+.aws/
+aws-credentials
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
